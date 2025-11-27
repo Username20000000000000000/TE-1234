@@ -1,1 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learn English with Max Verstappen</title>
+  <style>
+    :root {
+      --bg-dark: #050608;
+      --bg-card: #111319;
+      --accent-red: #e10600;
+      --accent-yellow: #ffd800;
+      --text-main: #f5f5f5;
+      --text-muted: #9ca3af;
+      --border-subtle: #272a34;
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1b1e29 0, #050608 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border-subtle);
+      background: linear-gradient(90deg, #050608 0%, #10121a 40%, #050608 100%);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 18px;
+      background:
+        linear-gradient(135deg, var(--accent-red) 0 50%, transparent 50% 100%),
+        linear-gradient(135deg, var(--accent-red) 0 50%, transparent 50% 100%);
+      background-position: left top, left bottom;
+      background-size: 100% 50%;
+      background-repeat: no-repeat;
+      border-radius: 999px;
+      box-shadow: 0 0 24px rgba(225, 6, 0, 0.6);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: all 0.18s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+      border-color: var(--accent-red);
+      background: rgba(225, 6, 0, 0.08);
+    }
+
+    .nav-tag {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+    }
+
+    main {
+      max-width: 1100px;
+      width: 100%;
+      margin: 2rem auto 3rem;
+      padding: 0 1.5rem;
+      flex: 1;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+      gap: 1.75rem;
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(2.2rem, 3vw + 1rem, 3rem);
+      line-height: 1.05;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-copy h1 span {
+      color: var(--accent-red);
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 32rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      padding: 0.4rem 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-muted);
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-red);
+      box-shadow: 0 0 14px rgba(225, 6, 0, 0.8);
+    }
+
+    .primary-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      border: 0;
+      background: linear-gradient(120deg, var(--accent-red), #ff4136);
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.04);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75);
+    }
+
+    .primary-btn span {
+      font-size: 1.1rem;
+    }
+
+    .hero-car-wrapper {
+      position: relative;
+      padding: 1.2rem 1.2rem 1.3rem;
+      border-radius: 1.3rem;
+      background: radial-gradient(circle at top left, rgba(225, 6, 0, 0.28), transparent 55%),
+                  radial-gradient(circle at top right, rgba(255, 216, 0, 0.14), transparent 60%),
+                  var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-tagline {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-car-badge {
+      position: absolute;
+      top: 1.3rem;
+      right: 1.4rem;
+      padding: 0.55rem 0.8rem;
+      border-radius: 0.8rem;
+      background: rgba(0, 0, 0, 0.68);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-car-badge strong {
+      color: var(--accent-yellow);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+    }
+
+    .hero-car-badge span {
+      color: var(--text-main);
+      font-size: 0.78rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(225, 6, 0, 0.12), transparent 55%),
+                  var(--bg-card);
+      border-radius: 1.1rem;
+      padding: 1.15rem 1.2rem 1.6rem;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card h2 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 0.95rem;
+    }
+
+    .card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .chip {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #e5e7eb;
+    }
+
+    .flag-strip {
+      position: absolute;
+      inset-inline: 0;
+      bottom: 0;
+      height: 5px;
+      background: repeating-linear-gradient(45deg, #fff 0 14px, #fff 14px 18px, #000 18px 32px, #000 32px 36px);
+      opacity: 0.5;
+    }
+
+    .lesson {
+      margin-top: 2.5rem;
+      padding: 1.6rem 1.4rem 1.8rem;
+      border-radius: 1.2rem;
+      border: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at top left, rgba(225, 6, 0, 0.18), transparent 55%), var(--bg-card);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.6);
+    }
+
+    .lesson-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1.3rem;
+    }
+
+    .lesson-title {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .lesson-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 1.3rem;
+    }
+
+    @media (max-width: 800px) {
+      .lesson-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .word-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 640px) {
+      .word-list {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .word-card {
+      padding: 0.7rem 0.8rem;
+      border-radius: 0.9rem;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.9);
+      cursor: pointer;
+      transition: border-color 0.16s ease, transform 0.12s ease, background 0.16s ease;
+      font-size: 0.82rem;
+    }
+
+    .word-card:hover {
+      border-color: var(--accent-red);
+      transform: translateY(-1px);
+      background: rgba(15, 23, 42, 1);
+    }
+
+    .word-en {
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+
+    .word-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .word-translation {
+      font-size: 0.8rem;
+      margin-top: 0.35rem;
+      display: none;
+    }
+
+    .word-card.show-translation .word-translation {
+      display: block;
+    }
+
+    .dialog-box {
+      padding: 0.85rem 0.9rem;
+      border-radius: 0.9rem;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 0.82rem;
+    }
+
+    .dialog-line {
+      margin-bottom: 0.45rem;
+    }
+
+    .dialog-speaker {
+      font-weight: 600;
+      color: var(--accent-yellow);
+      margin-right: 0.25rem;
+    }
+
+    .dialog-translation {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .quiz {
+      margin-top: 1.6rem;
+      padding-top: 1.2rem;
+      border-top: 1px dashed var(--border-subtle);
+    }
+
+    .quiz-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 0.4rem;
+      color: var(--text-muted);
+    }
+
+    .quiz-question {
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .btn-ghost {
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: transparent;
+      color: var(--text-main);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: background 0.16s ease, border-color 0.16s ease, transform 0.1s ease;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(148, 163, 184, 0.12);
+      border-color: var(--accent-red);
+      transform: translateY(-0.5px);
+    }
+
+    .quiz-result {
+      font-size: 0.82rem;
+      min-height: 1.1rem;
+    }
+
+    .quiz-result.correct {
+      color: #4ade80;
+    }
+
+    .quiz-result.wrong {
+      color: #f97373;
+    }
+
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 1.25rem 1.5rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    footer span {
+      color: var(--accent-red);
+    }
+
+    img.max-img {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+      max-height: 260px;
+      object-fit: cover;
+    }
+
+    img.max-small {
+      width: 100%;
+      border-radius: 8px;
+      display: block;
+      max-height: 200px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="logo">
+        <div class="logo-mark" aria-hidden="true"></div>
+        <span>F1 English Garage</span>
+      </div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#lesson">Lesson</a>
+        <a href="#max-pics">Max Pics</a>
+        <a href="#quiz">Quiz</a>
+      </nav>
+      <div class="nav-tag">Max Verstappen · English</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>
+          Learn English with <span>Max Verstappen</span>
+        </h1>
+        <p class="hero-subtitle">
+          F1 vibes + English lernen. Verstappen erklärt dir Racing-Vokabeln,
+          Sätze vom Funk und typische Wörter aus der Boxengasse.
+        </p>
+
+        <div class="hero-badges">
+          <div class="pill"><div class="pill-dot"></div>Vocabulary</div>
+          <div class="pill"><div class="pill-dot"></div>Race Radio</div>
+          <div class="pill"><div class="pill-dot"></div>Everyday English</div>
+        </div>
+
+        <button class="primary-btn" type="button" onclick="document.getElementById('lesson').scrollIntoView({behavior:'smooth'});">
+          <span>▶</span>
+          Start Lesson 01
+        </button>
+      </div>
+
+      <div class="hero-car-wrapper">
+        <div class="hero-tagline">Your teacher: Max Verstappen</div>
+
+        <!-- Big Verstappen portrait -->
+        <img
+          class="max-img"
+          src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Max_Verstappen_2023_Malaysia.jpg"
+          alt="Max Verstappen portrait"
+        />
+
+        <div class="hero-car-badge">
+          <strong>Lesson 01</strong>
+          <span>Racing vocabulary basics</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEARNING SECTION -->
+    <section class="lesson" id="lesson">
+      <div class="lesson-header">
+        <div>
+          <div class="lesson-title">Lesson 01 · Race Start</div>
+          <p class="lesson-sub">Tap the cards to see the German translation. Lies den Dialog laut vor.</p>
+        </div>
+        <div class="lesson-sub">Tipp: Erst Englisch lesen, dann Translation anzeigen.</div>
+      </div>
+
+      <div class="lesson-grid">
+        <div>
+          <div class="word-list">
+            <div class="word-card" data-en="push" data-de="Gas geben / härter fahren">
+              <div class="word-en">to push</div>
+              <div class="word-hint">Max is pushing for a fast lap.</div>
+              <div class="word-translation">= Gas geben, härter fahren</div>
+            </div>
+
+            <div class="word-card" data-en="lift off" data-de="vom Gas gehen">
+              <div class="word-en">to lift off</div>
+              <div class="word-hint">Lift off a little in turn 1.</div>
+              <div class="word-translation">= vom Gas gehen</div>
+            </div>
+
+            <div class="word-card" data-en="overtake" data-de="überholen">
+              <div class="word-en">to overtake</div>
+              <div class="word-hint">Max wants to overtake on the straight.</div>
+              <div class="word-translation">= überholen</div>
+            </div>
+
+            <div class="word-card" data-en="clean exit" data-de="sauberer Kurvenausgang">
+              <div class="word-en">clean exit</div>
+              <div class="word-hint">You need a clean exit from the corner.</div>
+              <div class="word-translation">= sauberer Kurvenausgang</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dialog-box">
+          <div class="dialog-line">
+            <span class="dialog-speaker">Engineer:</span>
+            <span>Max, you can push this lap. Use all the battery.</span>
+            <div class="dialog-translation">Du kannst in dieser Runde pushen. Nutze die ganze Batterie.</div>
+          </div>
+          <div class="dialog-line">
+            <span class="dialog-speaker">Max:</span>
+            <span>Copy. I&apos;ll try to overtake on the main straight.</span>
+            <div class="dialog-translation">Verstanden. Ich versuche auf der Start-Ziel-Geraden zu überholen.</div>
+          </div>
+          <div class="dialog-line">
+            <span class="dialog-speaker">Engineer:</span>
+            <span>Focus on a clean exit out of the last corner.</span>
+            <div class="dialog-translation">Konzentrier dich auf einen sauberen Ausgang aus der letzten Kurve.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quiz" id="quiz">
+        <div class="quiz-label">Mini quiz</div>
+        <div class="quiz-question">What does "to overtake" mean?</div>
+        <div class="quiz-options">
+          <button class="btn-ghost" data-answer="wrong">to slow down</button>
+          <button class="btn-ghost" data-answer="correct">to pass another car</button>
+          <button class="btn-ghost" data-answer="wrong">to go to the pit lane</button>
+        </div>
+        <div class="quiz-result" id="quiz-result"></div>
+      </div>
+    </section>
+
+    <!-- PICTURE GRID WITH MAX + RED BULL -->
+    <section class="grid" id="max-pics" aria-label="Max Verstappen and Red Bull cars">
+      <article class="card">
+        <h2>Max on track</h2>
+        <p>Use the picture to make your own sentence in English. Describe what Max is doing.</p>
+        <img
+          class="max-small"
+          src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Max_Verstappen_2022_Emilia_Romagna_GP_%28cropped%29.jpg"
+          alt="Max Verstappen driving a Red Bull F1 car"
+        />
+      </article>
+
+      <article class="card">
+        <h2>Pit lane moment</h2>
+        <p>Say one sentence in English about the pit stop. Then translate it to German.</p>
+        <img
+          class="max-small"
+          src="https://upload.wikimedia.org/wikipedia/commons/8/82/Max_Verstappen_2021_US_GP.jpg"
+          alt="Max Verstappen in the pit lane"
+        />
+      </article>
+
+      <article class="card">
+        <h2>Podium celebration</h2>
+        <p>Practice the phrase: "Max is celebrating his victory." – then make your own version.</p>
+        <img
+          class="max-small"
+          src="https://upload.wikimedia.org/wikipedia/commons/c/c2/Max_Verstappen_2023_Austria_podium.jpg"
+          alt="Max Verstappen celebrating on the podium"
+        />
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 · F1 English with Max Verstappen. <span>Customize the words</span> to match what you want to learn.
+  </footer>
+
+  <script>
+    // Toggle translations on vocab cards
+    document.querySelectorAll('.word-card').forEach(function(card) {
+      card.addEventListener('click', function() {
+        card.classList.toggle('show-translation');
+      });
+    });
+
+    // Simple quiz logic
+    const quizButtons = document.querySelectorAll('.quiz-options .btn-ghost');
+    const quizResult = document.getElementById('quiz-result');
+
+    quizButtons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        const correct = btn.getAttribute('data-answer') === 'correct';
+        if (correct) {
+          quizResult.textContent = 'Correct ✅ – "to overtake" = to pass another car.';
+          quizResult.classList.remove('wrong');
+          quizResult.classList.add('correct');
+        } else {
+          quizResult.textContent = 'Not correct ❌ – try again. Think about racing!';
+          quizResult.classList.remove('correct');
+          quizResult.classList.add('wrong');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
